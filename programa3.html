@@ -1,0 +1,52 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector("canvas");
+    var pincel = tela.getContext("2d");
+
+    var click = 0;
+    var cores = ["black", "orange", "red"];
+    var corAtual = 0;
+
+    pincel.fillStyle = "grey";
+    pincel.fillRect(0, 0,600, 400);
+
+    function exibeClick ( parametro ) {
+        var x = parametro.pageX - tela.offsetLeft;
+        var y = parametro.pageY - tela.offsetTop;
+        
+        var raio = 10;
+
+        if ( parametro.shiftKey ) {
+            raio += 20;
+        }
+
+         pincel.fillStyle = cores[corAtual];
+         pincel.beginPath();
+         pincel.arc(x, y, raio, 0, 2 * 3.14);
+         pincel.fill();
+
+         click ++;
+
+         console.log("Click " + click + ": " + x + ", " + y);
+    }
+
+    function trocaCor () {
+        corAtual++
+        
+        if ( corAtual >= cores.length ) {
+            corAtual = 0;
+        }
+
+        console.log("Trocou para a cor " + cores[corAtual]);
+        return false;
+    }
+
+    tela.onclick = exibeClick;
+
+    tela.oncontextmenu = trocaCor;
+
+
+
+</script>
