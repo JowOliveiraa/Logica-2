@@ -23,7 +23,14 @@
         var y = parametro.pageY - tela.offsetTop;;
 
         desenhaCirculo(x, y, raio - 25, "black");
-
+        
+        // raio - 25 representa o menor circulo, ou seja, o centro do alvo
+        if ( x > 300 - (raio - 25) && 
+             x < 300 + (raio - 25) && 
+             y > 200 - (raio - 25) &&
+             y < 200 + (raio - 25) ) {
+                alert("Acertou bem no meio!");
+             }
         console.log("Acertou em " + x + ", " + y);
     }
 
@@ -32,6 +39,7 @@
     desenhaCirculo(300, 200, raio, "red");
     desenhaCirculo(300, 200, raio - 10, "white");
     desenhaCirculo(300, 200, raio - 15, "red");
+    desenhaCirculo(300, 200, raio - 25, "white");
     
     
 </script>
