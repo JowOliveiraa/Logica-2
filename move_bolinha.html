@@ -1,0 +1,56 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector("canvas");
+    var pincel = tela.getContext("2d");
+    
+    pincel.fillStyle = "lightgrey";
+    pincel.fillRect( 0, 0, 600, 400 );
+
+    var x = 20;
+    var y = 20;
+
+    var paraEsquerda = 37;
+    var paraCima = 38;
+    var paraDireita = 39;
+    var paraBaixo = 40;
+
+    var taxaIncremento = 10;
+
+    function desenhaCirculo( x, y, raio ) {
+
+        pincel.fillStyle = "blue";
+        pincel.beginPath();
+        pincel.arc( x, y, raio, 0, 2 * 3.14 );
+        pincel.fill();
+    }
+
+    function limpaTela() {
+
+        pincel.clearRect( 0, 0, 600, 400 );
+    }
+
+    function animacao() {
+
+        limpaTela();
+        desenhaCirculo( x, y, 10 );
+    }
+
+    setInterval( animacao, 20 );
+
+    function lerDoTeclado( parametro ) {
+        if ( parametro.keyCode == paraEsquerda ) {
+            x -= taxaIncremento;
+        } else if ( parametro.keyCode == paraDireita ) {
+            x += taxaIncremento;
+        } else if ( parametro.keyCode == paraCima ) {
+            y -= taxaIncremento;
+        } else if ( parametro.keyCode == paraBaixo ) {
+            y += taxaIncremento;
+        }
+    }
+
+   document.onkeydown = lerDoTeclado;
+
+</script>

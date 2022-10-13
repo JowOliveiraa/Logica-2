@@ -1,0 +1,58 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector("canvas");
+    var pincel = tela.getContext("2d");
+
+    pincel.fillStyle = "lightgrey";
+    pincel.fillRect(0, 0, 600, 400);
+    
+    function limpaTela() {
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    var raio = 10;
+    var xMaximo;
+    var yMaximo;
+
+    function desenhaCirculo( x, y, raio, cor ) {
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc( x, y, raio, 0, 2 * 3.14 );
+        pincel.fill();
+    }
+
+    function desenhaAlvo( x, y ) {
+        desenhaCirculo( x, y, raio + 20, "red" );
+        desenhaCirculo( x, y, raio + 10, "white");
+        desenhaCirculo( x, y, raio, "red");
+    }
+
+    function sorteiaPosição( maximo ) {
+        return Math.round( Math.random() * maximo );
+    }
+
+    function play() {
+        limpaTela();
+        xMaximo = sorteiaPosição( 600 );
+        yMaximo = sorteiaPosição( 400 );
+        desenhaAlvo( xMaximo, yMaximo);
+    }
+    
+    tela.onclick = function( parametro ) {
+        var x = parametro.pageX - tela.offsetLeft;
+        var y = parametro.pageY - tela.offsetTop;
+        desenhaCirculo( x, y, raio - 5, "black");
+
+        if ( x > xMaximo - raio  
+          && x < xMaximo + raio  
+          && y > yMaximo - raio  
+          && y < yMaximo + raio ) {
+            alert("Acertou bem no alvo!");
+        } 
+    }
+
+    setInterval( play, 1000);
+
+</script>
